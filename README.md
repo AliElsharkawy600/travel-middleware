@@ -69,5 +69,5 @@ Interactive UI to explore the API.
 
 ## Future Improvements
 - **Pagination**: Implement cursor-based pagination for large data sets.
-- **Sorting**: Add sorting by price or stars.
+- **Sorting**: Add sorting by stars.
 - **Deduplication**: Use fuzzy matching for hotel names to handle slight variations in supplier data.
