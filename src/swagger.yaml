@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: Travel Middleware API
+  description: A Node.js service that fetches and normalizes hotel data from multiple suppliers.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /hotels:
+    get:
+      summary: Fetch normalized hotel data
+      description: Returns a list of hotels from multiple suppliers, normalized into a single model.
+      parameters:
+        - name: city
+          in: query
+          required: false
+          description: City name to filter hotels (optional)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Hotel'
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                      warnings:
+                        type: array
+                        items:
+                          type: string
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Hotel:
+      type: object
+      properties:
+        supplier:
+          type: string
+          example: 'A'
+        supplierHotelId:
+          type: string
+          example: 'A-101'
+        name:
+          type: string
+          example: 'Grand Istanbul Hotel'
+        city:
+          type: string
+          example: 'Istanbul'
+        price:
+          type: object
+          properties:
+            amount:
+              type: number
+              example: 120
+            currency:
+              type: string
+              example: 'USD'
+        stars:
+          type: integer
+          example: 5
+        available:
+          type: boolean
+          example: true
